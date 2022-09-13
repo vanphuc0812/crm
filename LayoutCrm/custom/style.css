@@ -1,0 +1,26 @@
+table{
+    margin: 30px;
+    border-collapse: collapse;
+}
+table tr{
+    border-bottom: 1px solid #666;
+}
+table th, table td{
+    padding: 10px;
+}
+/* Highlighter class */
+.alt{
+    background: #cdcdcd;
+}
+
+.highlight-delete {
+    background-color: #da1919
+}
+
+.highlight-edit {
+    background-color: #f5ed0c
+}
+
+.highlight-add {
+    background-color: #06f43e
+}
