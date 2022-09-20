@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "role", urlPatterns = UrlUltils.ROLE_URL)
-public class RoleController extends HttpServlet {
+@WebServlet(name = "users", urlPatterns = UrlUltils.USER_URL)
+public class UserController extends HttpServlet {
     private Gson gson = new Gson();
     private RoleService roleService = RoleService.getInstance();
     private ResponseData responseData = new ResponseData();

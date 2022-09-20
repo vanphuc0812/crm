@@ -14,13 +14,13 @@ table th, table td{
 }
 
 .highlight-delete {
-    background-color: #da1919
+    color: #ff0000
 }
 
 .highlight-edit {
-    background-color: #f5ed0c
+    color: #ffd900
 }
 
 .highlight-add {
-    background-color: #06f43e
+    color: #06f43e
 }

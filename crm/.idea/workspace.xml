@@ -5,29 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c95a44a-7e0d-462a-9196-ff50b9297ffc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/e/2e22b6edd746fa3dc40ad7276c87c8d87d72a392" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/e/8e6d3b70c9f5b02570779b0441540d45eceb0ded" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/CRM.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/RoleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/filter/CustomFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/jdbc/MysqlConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/ResponseData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/RoleModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/repository/AbstractRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/repository/JdbcExecute.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/repository/RoleRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/service/RoleService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/utils/UrlUltils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/UserModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LayoutCrm/custom/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../LayoutCrm/custom/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LayoutCrm/custom/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LayoutCrm/js/role.js" beforeDir="false" afterPath="$PROJECT_DIR$/../LayoutCrm/js/role.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LayoutCrm/role-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/../LayoutCrm/role-table.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/847c9a65-d2ff-49bd-a08e-ed3854fad486.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/847c9a65-d2ff-49bd-a08e-ed3854fad486.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/96b72e52-80dd-4060-8d66-02c87218e365.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/96b72e52-80dd-4060-8d66-02c87218e365/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/96b72e52-80dd-4060-8d66-02c87218e365/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/96b72e52-80dd-4060-8d66-02c87218e365/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/96b72e52-80dd-4060-8d66-02c87218e365/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/c/1c3f6de42e96494f054da300e608a9988538a54c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/7/4729ddb451c26e3faf9f5d6cfebd26e8696a19ca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/d/eded27c3a1465b4147b656eefd55d683eae2ea8d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/RoleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/jdbc/MysqlConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/jdbc/MysqlConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/utils/UrlUltils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/utils/UrlUltils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +48,7 @@
     <option name="myRunOnSave" value="true" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -64,18 +66,19 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Project.color&quot;: &quot;003256&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/21_Java/apache-tomcat-9.0.64-windows-x64/apache-tomcat-9.0.64&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/100_Learning/apache-tomcat-9.0.65&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.poratu.idea.plugins.tomcat.setting.TomcatSettingConfigurable&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
@@ -83,6 +86,12 @@
     ]
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cybersoft.java18.crm.repository" />
+      <recent name="cybersoft.java18.crm.api" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Unnamed" type="com.poratu.idea.plugins.tomcat" factoryName="SMART_TOMCAT_FACTORY" nameIsGenerated="true">
       <option name="adminPort" value="8005" />
@@ -93,10 +102,10 @@
       <option name="port" value="8080" />
       <option name="tomcatInfo">
         <TomcatInfo>
-          <option name="name" value="Apache Tomcat/9.0.64" />
-          <option name="number" value="1" />
-          <option name="path" value="D:\21_Java\apache-tomcat-9.0.64-windows-x64\apache-tomcat-9.0.64" />
-          <option name="version" value="9.0.64.0" />
+          <option name="name" value="Apache Tomcat/9.0.65" />
+          <option name="number" value="0" />
+          <option name="path" value="D:\100_Learning\apache-tomcat-9.0.65" />
+          <option name="version" value="9.0.65.0" />
         </TomcatInfo>
       </option>
       <option name="vmOptions" value="" />
@@ -117,6 +126,14 @@
       <workItem from="1660979444391" duration="9399000" />
       <workItem from="1661066101575" duration="9362000" />
       <workItem from="1661584755839" duration="8656000" />
+      <workItem from="1663057099203" duration="3271000" />
+      <workItem from="1663116382461" duration="2732000" />
+      <workItem from="1663140270878" duration="1331000" />
+      <workItem from="1663204613210" duration="11916000" />
+      <workItem from="1663290899390" duration="1385000" />
+      <workItem from="1663300683548" duration="603000" />
+      <workItem from="1663311253600" duration="4135000" />
+      <workItem from="1663639526282" duration="1407000" />
     </task>
     <servers />
   </component>
@@ -133,6 +150,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

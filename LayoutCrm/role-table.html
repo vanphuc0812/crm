@@ -21,6 +21,7 @@
     <!-- color CSS -->
     <link href="css/colors/blue-dark.css" id="theme" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
+    <link rel="stylesheet" href="./css/role.css">
     <link href="plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -127,7 +128,7 @@
                         <h4 class="page-title">Danh sách quyền</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-                        <a href="role-add.html" class="btn btn-sm btn-success">Thêm mới</a>
+                        <a href="role-add.html" class="btn btn-sm btn-success btn-add-role">Thêm mới</a>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -172,6 +173,48 @@
                 </div>
                 <!-- /.row -->
             </div>
+            <div>
+                <dialog id="edit-submit" class="site-dialog">
+                        <div class="form-group">
+                            <label class="col-md-12">Tên quyền</label>
+                            <div class="col-md-12">
+                                <input id="role" type="text" placeholder="Tên quyền" class="form-control form-control-line" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Mô tả</label>
+                            <div class="col-md-12">
+                                <input id="description" type="text" placeholder="Mô tả" class="form-control form-control-line" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button id="btn-edit-role-submit" type="submit" class="btn btn-success btn-edit-role-submit">Sửa</button>
+                                <a href="role-table.html" id="btn-cancel-edit" class="btn btn-primary">Hủy</a>
+                            </div>
+                        </div>
+                </dialog>
+                <dialog id="add-submit" class="site-dialog">
+                    <div class="form-group">
+                        <label class="col-md-12">Tên quyền</label>
+                        <div class="col-md-12">
+                            <input id="role" type="text" placeholder="Tên quyền" class="form-control form-control-line" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Mô tả</label>
+                        <div class="col-md-12">
+                            <input id="description" type="text" placeholder="Mô tả" class="form-control form-control-line" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button id="btn-add-role-submit" type="submit" class="btn btn-success btn-add-role-submit">Thêm</button>
+                            <a href="role-table.html" id="btn-cancel-add" class="btn btn-primary">Hủy</a>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
             <!-- /.container-fluid -->
             <footer class="footer text-center"> 2018 &copy; myclass.com </footer>
         </div>
@@ -200,7 +243,7 @@
         });
     </script>
     <script src="js/role.js"></script>
-
+    <!-- <script src="custom/index.js"></script> -->
 </body>
 
 </html>
