@@ -11,7 +11,7 @@ public class UserRepository extends AbstractRepository {
     public List<UserModel> getAllUsers() {
         return executeQuery(connection -> {
             List<UserModel> users = new ArrayList<UserModel>();
-            String query = "select * from users";
+            String query = "select * from users order by users.id";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -19,6 +19,7 @@ public class UserRepository extends AbstractRepository {
                 userModel.setId(resultSet.getInt("id"));
                 userModel.setEmail(resultSet.getString("email"));
                 userModel.setFullName(resultSet.getString("fullname"));
+                userModel.setRoleId(resultSet.getInt("role_id"));
                 userModel.setAvatar(resultSet.getString("avatar"));
                 users.add(userModel);
             }
@@ -37,22 +38,40 @@ public class UserRepository extends AbstractRepository {
 
     public int updateUser(UserModel userModel) {
         return (int) executeSaveAndUpdate(connection -> {
-            String query = "UPDATE users SET email = ?, fullname = ?, avatar = ? WHERE id = ?";
+            String query = "UPDATE users SET email = ?, fullname = ?, password=?, avatar = ?, role_id = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, userModel.getEmail());
             statement.setString(2, userModel.getFullName());
+            statement.setString(2, userModel.getPassword());
             statement.setString(3, userModel.getAvatar());
+            statement.setInt(4, userModel.getRoleId());
+            statement.setInt(5, userModel.getId());
             return statement.executeUpdate();
         });
     }
 
-    public int saveUser(String email, String fullName, String avatar) {
+    public int saveUser(String email, String fullName, String password, int roleId, String avatar) {
         return (int) executeSaveAndUpdate(connection -> {
-            String query = "INSERT INTO users(email, fullname, avatar) VALUES(?, ?, ?)";
+            String query = "INSERT INTO users(email, fullname, password, avatar) VALUES(?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, email);
             statement.setString(2, fullName);
-            statement.setString(3, avatar);
+            statement.setString(3, password);
+            statement.setInt(4, roleId);
+            statement.setString(5, avatar);
+            return statement.executeUpdate();
+        });
+    }
+
+    public int saveUser(UserModel userModel) {
+        return (int) executeSaveAndUpdate(connection -> {
+            String query = "INSERT INTO users(email, fullname, password, role_id, avatar) VALUES(?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, userModel.getEmail());
+            statement.setString(2, userModel.getFullName());
+            statement.setString(3, userModel.getPassword());
+            statement.setInt(4, userModel.getRoleId());
+            statement.setString(5, userModel.getAvatar());
             return statement.executeUpdate();
         });
     }

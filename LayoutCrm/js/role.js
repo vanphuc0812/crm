@@ -1,6 +1,8 @@
+var api_url = "http://localhost:8080/crm/roles"
+
 $(document).ready(function () {
     $.ajax({
-        url: "http://localhost:8080/crm/roles",
+        url: api_url,
         method: "GET"
     }).done(function(result){
         $("#example tbody").empty()
@@ -26,7 +28,7 @@ $(document).ready(function () {
         var roleId = $(this).attr('role-id')
         var This = $(this)
         $.ajax({
-            url:'http://localhost:8080/crm/roles?id=' + roleId,
+            url: api_url + '?id=' + roleId,
             method:'DELETE',
             crossDomain: true
         }).done(function(result){
@@ -48,7 +50,7 @@ $(document).ready(function () {
         var role = $('#role').val()
         var description = $('#description').val()
         $.ajax({
-            url:'http://localhost:8080/crm/roles',
+            url: api_url,
             method:'POST',
             data: {
                 role: role,
@@ -56,17 +58,7 @@ $(document).ready(function () {
             }
         }).done(function(result){
             if(result.isSuccess == true) {
-                // $("#example tbody tr:last-child").addClass('highlight-delete');
-                setTimeout(function () {
-                    $.toast({
-                        heading: 'Failed',
-                        text: 'Failed to add new role',
-                        showHideTransition: 'slide',
-                        position: 'top-center',
-                        icon: 'success'
-                    })
-                    $(location).prop('href', 'role-table.html')//.done(function(){})
-                }, 2000);
+                $(location).prop('href', 'role-table.html')//.done(function(){})
             }
             else $.toast({
                 heading: 'Failed',
@@ -100,7 +92,7 @@ $(document).ready(function () {
         var role = $('#role').val()
         var description = $('#description').val()
         $.ajax({
-            url:'http://localhost:8080/crm/roles',
+            url: api_url,
             method:'PUT',
             processData: false,
             contentType: 'application/json',

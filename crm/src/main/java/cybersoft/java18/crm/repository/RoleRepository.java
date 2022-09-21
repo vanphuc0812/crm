@@ -54,4 +54,21 @@ public class RoleRepository extends AbstractRepository {
             return statement.executeUpdate();
         });
     }
+
+    public RoleModel getRoleById(int id) {
+        return (RoleModel) executeSingelQuery(connection -> {
+            String query = "select * from roles where id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                RoleModel roleModel = new RoleModel();
+                roleModel.setId(resultSet.getInt("id"));
+                roleModel.setName(resultSet.getString("name"));
+                roleModel.setDescription(resultSet.getString("description"));
+                return roleModel;
+            } else return null;
+        });
+    }
 }

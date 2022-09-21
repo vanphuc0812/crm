@@ -18,6 +18,16 @@ public abstract class AbstractRepository<T> {
         }
     }
 
+    protected T executeSingelQuery(JdbcExecute<T> process) {
+        try {
+            Connection connection = MysqlConnection.getConnection();
+            //lamda function
+            return process.processor(connection);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     protected T executeSaveAndUpdate(JdbcExecute<T> process) {
         try {
             Connection connection = MysqlConnection.getConnection();

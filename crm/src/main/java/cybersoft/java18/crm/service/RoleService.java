@@ -31,4 +31,8 @@ public class RoleService {
     public int saveRole(String role, String description) {
         return roleRepository.saveRole(role, description);
     }
+
+    public RoleModel getRoleById(int id) {
+        return roleRepository.getRoleById(id);
+    }
 }

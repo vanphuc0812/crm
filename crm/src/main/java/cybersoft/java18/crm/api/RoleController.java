@@ -16,7 +16,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "role", urlPatterns = UrlUltils.ROLE_URL)
+@WebServlet(name = "roles", urlPatterns = {
+        UrlUltils.ROLE_URL,
+        UrlUltils.ROLE_URL + "/*"
+})
 public class RoleController extends HttpServlet {
     private Gson gson = new Gson();
     private RoleService roleService = RoleService.getInstance();
@@ -24,8 +27,16 @@ public class RoleController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<RoleModel> roles = roleService.getAllRoles();
-        String json = gson.toJson(roles);
+        String json;
+        String path = req.getRequestURI().replace(UrlUltils.CONTEXT_PATH, "");
+        if (UrlUltils.ROLE_URL.equals(path)) {
+            List<RoleModel> roles = roleService.getAllRoles();
+            json = gson.toJson(roles);
+        } else {
+            int roleId = Integer.parseInt(path.replace(req.getServletPath() + "/", ""));
+            RoleModel role = roleService.getRoleById(roleId);
+            json = gson.toJson(role);
+        }
         PrintWriter printWriter = resp.getWriter();
         printWriter.print(json);
         printWriter.flush();
@@ -41,12 +52,11 @@ public class RoleController extends HttpServlet {
             responseData.setSuccess(true);
             responseData.setMessage("Sucessfully add new role");
         } else {
-            responseData.setStatusCode(200);
+            responseData.setStatusCode(401);
             responseData.setSuccess(false);
             responseData.setMessage("Failed to add new role");
         }
         String json = gson.toJson(responseData);
-
         PrintWriter printWriter = resp.getWriter();
         printWriter.print(json);
         printWriter.flush();
@@ -61,7 +71,7 @@ public class RoleController extends HttpServlet {
             responseData.setSuccess(true);
             responseData.setMessage("Sucessfully delete");
         } else {
-            responseData.setStatusCode(200);
+            responseData.setStatusCode(401);
             responseData.setSuccess(false);
             responseData.setMessage("Failed to delete");
         }
@@ -90,7 +100,7 @@ public class RoleController extends HttpServlet {
             responseData.setSuccess(true);
             responseData.setMessage("Sucessfully update role");
         } else {
-            responseData.setStatusCode(200);
+            responseData.setStatusCode(401);
             responseData.setSuccess(false);
             responseData.setMessage("Failed to update role");
         }

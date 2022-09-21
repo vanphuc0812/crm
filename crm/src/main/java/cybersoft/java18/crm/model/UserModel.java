@@ -1,6 +1,5 @@
 package cybersoft.java18.crm.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,11 +7,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class UserModel {
     private int id;
     private String email;
     private String fullName;
     private String password;
     private String avatar;
+    private int roleId;
+
+    public UserModel(String email, String fullName, String password, String avatar, int roleId) {
+        this.email = email;
+        this.fullName = fullName;
+        this.password = password;
+        this.avatar = avatar;
+        this.roleId = roleId;
+    }
 }
