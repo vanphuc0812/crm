@@ -7,10 +7,12 @@ import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class LocalDateAdapter implements JsonSerializer<LocalDate> {
+    public final static DateTimeFormatter DATE_FORMATER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public JsonElement serialize(LocalDate date, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(date.format(DateTimeFormat.DATE_FORMATER)); // "yyyy-mm-dd"
+        return new JsonPrimitive(date.format(DATE_FORMATER)); // "yyyy-mm-dd"
     }
 }
