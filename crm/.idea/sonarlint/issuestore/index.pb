@@ -15,9 +15,5 @@ k
 ;src/main/java/cybersoft/java18/crm/filter/CustomFilter.java,e\d\eded27c3a1465b4147b656eefd55d683eae2ea8d
 n
 >src/main/java/cybersoft/java18/crm/repository/JdbcExecute.java,7\d\7dd988eb97942ed4cb18633dca38efe4959ebc5e
-g
-7src/main/java/cybersoft/java18/crm/utils/UrlUltils.java,1\c\1c3f6de42e96494f054da300e608a9988538a54c
 u
 Esrc/main/java/cybersoft/java18/crm/repository/AbstractRepository.java,f\f\ff7532c8d2f5fdcedfbfeb6098574595d94d8f56
-g
-7src/main/java/cybersoft/java18/crm/model/RoleModel.java,3\c\3cb5717d5aa21ddd99b2787ac4bb246a879a882f
