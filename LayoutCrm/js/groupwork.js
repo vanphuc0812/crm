@@ -1,11 +1,11 @@
 var api_url_groupwork = "http://localhost:8080/crm/jobs"
 
 $(document).ready(function () {
+    $("#example tbody").empty()
     $.ajax({
         url: api_url_groupwork,
         method: "GET"
     }).done(function(result){
-        $("#example tbody").empty()
         $.each(result,function(index,value){
             console.log(value)
             var row = `<tr>

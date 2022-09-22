@@ -1,10 +1,10 @@
 package cybersoft.java18.crm.api;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
 import cybersoft.java18.crm.model.JobModel;
 import cybersoft.java18.crm.model.ResponseData;
 import cybersoft.java18.crm.service.JobService;
-import cybersoft.java18.crm.utils.DateTimeFormat;
+import cybersoft.java18.crm.utils.CustomGson;
 import cybersoft.java18.crm.utils.LocalDateAdapter;
 import cybersoft.java18.crm.utils.UrlUltils;
 
@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,16 +26,8 @@ import java.util.List;
 public class JobController extends HttpServlet {
     private final JobService jobService = JobService.getInstance();
     private final ResponseData responseData = new ResponseData();
-    private final Gson gson = new GsonBuilder()
-            .setPrettyPrinting()
-            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-            .registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
-                @Override
-                public LocalDate deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-                    return LocalDate.parse(json.getAsJsonPrimitive().getAsString(), DateTimeFormat.DATE_FORMATER);
-                }
-            })
-            .create();
+
+    private final Gson gson = CustomGson.GSON;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -58,13 +49,8 @@ public class JobController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
-        System.out.println(name);
-        System.out.println(req.getParameter("start_date"));
-        System.out.println(req.getParameter("end_date"));
-        LocalDate startDate = LocalDate.parse(req.getParameter("start_date"), DateTimeFormat.DATE_FORMATER);
-        LocalDate endDate = LocalDate.parse(req.getParameter("end_date"), DateTimeFormat.DATE_FORMATER);
-        System.out.println(startDate);
-        System.out.println(endDate);
+        LocalDate startDate = LocalDate.parse(req.getParameter("start_date"), LocalDateAdapter.DATE_FORMATER);
+        LocalDate endDate = LocalDate.parse(req.getParameter("end_date"), LocalDateAdapter.DATE_FORMATER);
         int result = jobService.saveJob(name, startDate, endDate);
         if (result == 1) {
             responseData.setStatusCode(200);
