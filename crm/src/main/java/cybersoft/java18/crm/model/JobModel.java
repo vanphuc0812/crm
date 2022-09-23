@@ -17,9 +17,4 @@ public class JobModel {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public JobModel(String name, LocalDate startDate, LocalDate endDate) {
-        this.name = name;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
 }

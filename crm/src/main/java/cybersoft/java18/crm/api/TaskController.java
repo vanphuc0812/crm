@@ -19,9 +19,9 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.List;
 
-@WebServlet(name = "jobs", urlPatterns = {
-        UrlUltils.JOB_URL,
-        UrlUltils.JOB_URL + "/*"
+@WebServlet(name = "tasks", urlPatterns = {
+        UrlUltils.TASK_URL,
+        UrlUltils.TASK_URL + "/*"
 })
 public class TaskController extends HttpServlet {
     private final TaskService service = TaskService.getInstance();
@@ -32,7 +32,7 @@ public class TaskController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String json;
-        String path = req.getRequestURI().replace(UrlUltils.CONTEXT_PATH, "");
+        String path = req.getRequestURI().replace(req.getContextPath(), "");
         if (UrlUltils.TASK_URL.equals(path)) {
             List<TaskModel> jobs = service.getAllTasks();
             json = gson.toJson(jobs);

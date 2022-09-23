@@ -1,5 +1,6 @@
 package cybersoft.java18.crm.repository;
 
+import cybersoft.java18.crm.model.TaskModel;
 import cybersoft.java18.crm.model.UserModel;
 
 import java.sql.PreparedStatement;
@@ -27,6 +28,26 @@ public class UserRepository extends AbstractRepository {
         });
     }
 
+    public UserModel getUserById(String id) {
+        return (UserModel) executeSingelQuery(connection -> {
+            String query = "select * from users where id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, id);
+            statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                UserModel userModel = new UserModel();
+                userModel.setId(resultSet.getInt("id"));
+                userModel.setFullName(resultSet.getString("fullname"));
+                userModel.setEmail(resultSet.getString("email"));
+                userModel.setPassword(resultSet.getString("password"));
+                userModel.setAvatar(resultSet.getString("avatar"));
+                userModel.setRoleId(resultSet.getInt("role_id"));
+                return userModel;
+            } else return null;
+        });
+    }
+
     public int deleteUser(String id) {
         return (int) executeSaveAndUpdate(connection -> {
             String query = "delete from users where id = ?";
@@ -50,14 +71,14 @@ public class UserRepository extends AbstractRepository {
         });
     }
 
-    public int saveUser(String email, String fullName, String password, int roleId, String avatar) {
+    public int saveUser(String email, String fullName, String password, String roleId, String avatar) {
         return (int) executeSaveAndUpdate(connection -> {
-            String query = "INSERT INTO users(email, fullname, password, avatar) VALUES(?, ?, ?, ?, ?)";
+            String query = "INSERT INTO users(email, fullname, password, role_id, avatar) VALUES(?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, email);
             statement.setString(2, fullName);
             statement.setString(3, password);
-            statement.setInt(4, roleId);
+            statement.setString(4, roleId);
             statement.setString(5, avatar);
             return statement.executeUpdate();
         });

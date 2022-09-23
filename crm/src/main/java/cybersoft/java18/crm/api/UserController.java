@@ -2,6 +2,7 @@ package cybersoft.java18.crm.api;
 
 import com.google.gson.Gson;
 import cybersoft.java18.crm.model.ResponseData;
+import cybersoft.java18.crm.model.TaskModel;
 import cybersoft.java18.crm.model.UserModel;
 import cybersoft.java18.crm.service.UserService;
 import cybersoft.java18.crm.utils.UrlUltils;
@@ -19,17 +20,28 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "users", urlPatterns = UrlUltils.USER_URL)
+@WebServlet(name = "users", urlPatterns = {
+        UrlUltils.USER_URL,
+        UrlUltils.USER_URL+"/*"
+})
 @MultipartConfig
 public class UserController extends HttpServlet {
     private final Gson gson = new Gson();
-    private final UserService userService = UserService.getInstance();
+    private final UserService service = UserService.getInstance();
     private final ResponseData responseData = new ResponseData();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<UserModel> users = userService.getAllUsers();
-        String json = gson.toJson(users);
+        String json;
+        String path = req.getRequestURI().replace(req.getContextPath(), "");
+        if (UrlUltils.USER_URL.equals(path)) {
+            List<UserModel> users = service.getAllUsers();
+            json = gson.toJson(users);
+        } else {
+            String userId = path.replace(req.getServletPath() + "/", "");
+            UserModel user = service.getUserById(userId);
+            json = gson.toJson(user);
+        }
         PrintWriter printWriter = resp.getWriter();
         printWriter.print(json);
         printWriter.flush();
@@ -40,7 +52,7 @@ public class UserController extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        int roleId = Integer.parseInt(req.getParameter("role_id"));
+        String roleId = req.getParameter("role_id");
         Part filePart = req.getPart("avatar");
         String fileName = filePart.getSubmittedFileName();
         String fileLink = req.getContextPath() + "/WEB-INF/avatar/" + fileName;
@@ -48,9 +60,8 @@ public class UserController extends HttpServlet {
         for (Part part : req.getParts()) {
             part.write(fileLink);
         }
-        UserModel user = new UserModel(name, email, password, fileLink, roleId);
 
-        int result = userService.saveUser(user);
+        int result = service.saveUser(name, email, password, roleId, fileLink);
         if (result == 1) {
             responseData.setStatusCode(200);
             responseData.setSuccess(true);
@@ -70,7 +81,7 @@ public class UserController extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        int result = userService.deleteUserById(id);
+        int result = service.deleteUserById(id);
         if (result == 1) {
             responseData.setStatusCode(200);
             responseData.setSuccess(true);
@@ -96,7 +107,7 @@ public class UserController extends HttpServlet {
             builder.append(line);
         }
         UserModel userModel = gson.fromJson(builder.toString(), UserModel.class);
-        int result = userService.updateUser(userModel);
+        int result = service.updateUser(userModel);
         if (result == 1) {
             responseData.setStatusCode(200);
             responseData.setSuccess(true);

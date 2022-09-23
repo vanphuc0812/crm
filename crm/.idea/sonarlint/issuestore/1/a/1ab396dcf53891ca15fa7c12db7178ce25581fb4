@@ -1,0 +1,27 @@
+
+k
+java:S1989-"PHandle the following exception that could be thrown by "getWriter": IOException.(¿—Èœùÿÿÿÿ
+S
+java:S1854;"8Remove this useless assignment to local variable "file".(í£Ïûÿÿÿÿ
+|
+java:S19898"aHandle the following exceptions that could be thrown by "getPart": IOException, ServletException.(î÷Õûÿÿÿÿ
+D
+java:S1481;")Remove this unused "file" local variable.(í£Ïûÿÿÿÿ
+}
+java:S1989<"bHandle the following exceptions that could be thrown by "getParts": IOException, ServletException.(¶ŸÕÁşÿÿÿÿ
+b
+java:S1989="LHandle the following exception that could be thrown by "write": IOException.(Ø¥èÙ
+k
+java:S1989L"PHandle the following exception that could be thrown by "getWriter": IOException.(¿—Èœùÿÿÿÿ
+k
+java:S1989`"PHandle the following exception that could be thrown by "getWriter": IOException.(¿—Èœùÿÿÿÿ
+k
+java:S1989g"PHandle the following exception that could be thrown by "getReader": IOException.(İØ·³üÿÿÿÿ
+j
+java:S1989j"OHandle the following exception that could be thrown by "readLine": IOException.(íÕŒ¦øÿÿÿÿ
+r
+java:S1989m"WHandle the following exception that could be thrown by "fromJson": JsonSyntaxException.(´ÉÎüşÿÿÿÿ
+k
+java:S1989z"PHandle the following exception that could be thrown by "getWriter": IOException.(¿—Èœùÿÿÿÿ
+\
+java:S1128"ARemove this unused import 'cybersoft.java18.crm.model.TaskModel'.(¹İ‘ëúÿÿÿÿ
