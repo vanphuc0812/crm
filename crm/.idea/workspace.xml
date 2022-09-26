@@ -6,17 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="3c95a44a-7e0d-462a-9196-ff50b9297ffc" name="Changes" comment="Add task feat">
       <change beforePath="$PROJECT_DIR$/../LayoutCrm/task.html" beforeDir="false" afterPath="$PROJECT_DIR$/../LayoutCrm/task.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/847c9a65-d2ff-49bd-a08e-ed3854fad486/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/847c9a65-d2ff-49bd-a08e-ed3854fad486/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/847c9a65-d2ff-49bd-a08e-ed3854fad486/storage_v2/_src_/schema/information_schema.FNRwLQ.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/7/4729ddb451c26e3faf9f5d6cfebd26e8696a19ca" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/7/4729ddb451c26e3faf9f5d6cfebd26e8696a19ca" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/b/0b9634c37b950017ac29cefd6e16408a4cef4613" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/a/1ab396dcf53891ca15fa7c12db7178ce25581fb4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/e/1e9357e34b662322ccef15541a13242ebf1fe48c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/2/526d9649efbf3ad21ab93dec15f9c35eb71b75e3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/JobModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/JobModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/utils/UrlUltils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/utils/UrlUltils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/TaskModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/TaskModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,6 +130,7 @@
       <workItem from="1663639526282" duration="13179000" />
       <workItem from="1663722435445" duration="13322000" />
       <workItem from="1663898431839" duration="4090000" />
+      <workItem from="1664155236199" duration="5800000" />
     </task>
     <task id="LOCAL-00001" summary="Add task feat">
       <created>1663897802383</created>

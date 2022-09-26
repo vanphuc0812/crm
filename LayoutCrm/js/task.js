@@ -55,10 +55,10 @@ $(document).ready(function () {
 //-----------------------------------------------------Delete--------------------------------------------------
 // 
     $("body").on('click', '.btn-delete', function(){
-        var jobId = $(this).attr('job-id')
+        var taskId = $(this).attr('task-id')
         var This = $(this)
         $.ajax({
-            url: api_url_groupwork + '?id=' + jobId,
+            url: api_url_task + '?id=' + taskId,
             method:'DELETE',
             crossDomain: true
         }).done(function(result){
@@ -75,76 +75,125 @@ $(document).ready(function () {
 // 
 //-----------------------------------------------------Add-----------------------------------------------------
 // 
-    $('#btn-save-job').click(function(e) {
+    $('#btn-save-task').click(function(e) {
         e.preventDefault()
-        var name = $('#name').val()
-        var start_date = $('#start_date').val()
-        var end_date = $('#end_date').val()
+        var name = $('#task').val()
+        var job = $('#job option:selected').attr('job-id')
+        var user = $('#user option:selected').attr('user-id')
+        var startDate = $('#start-date').val()
+        var endDate = $('#end-date').val()
+        var status = $('#status option:selected').attr('status-id')
         $.ajax({
-            url: api_url_groupwork,
+            url: api_url_task,
             method:'POST',
             data: {
                 name: name,
-                start_date: start_date,
-                end_date: end_date
+                jobId: job,
+                userId: user,
+                startDate: startDate,
+                endDate: endDate,
+                statusId: status
             }
         }).done(function(result){
             if(result.isSuccess == true) {
-                $(location).prop('href', 'groupwork.html')
+                $(location).prop('href', 'task.html')
             }
-            else $.toast({
-            })
+            else console.log("failed")
         })
     })
     
 
 
 //-----------------------------------------------------Edit----------------------------------------------------
-    var job_id_edit
+    var task_id_edit
     var $editSubmit = $('#edit-dialog');
     var row
     $("body").on('click', '.btn-edit', function(){
         row = $(this)
+        $("#job").empty()
+        $.ajax({
+            url: api_url_job,
+            method:'GET',
+            async: false,
+            crossDomain: true
+        }).done(function(result){
+            $.each(result,function(index,value){
+                var option = `<option job-id="${value.id}">${value.name}</option>`
+                $("#job").append(option)
+            })
+        })
+        $("#user").empty()
+        $.ajax({
+            url: api_url_user,
+            method:'GET',
+            async: false,
+            crossDomain: true
+        }).done(function(result){
+            $.each(result,function(index,value){
+                var option = `<option user-id="${value.id}">${value.fullName}</option>`
+                $("#user").append(option)
+            })
+        })
+        $("#status").empty()
+        $.ajax({
+            url: api_url_status,
+            method:'GET',
+            async: false,
+            crossDomain: true
+        }).done(function(result){
+            $.each(result,function(index,value){
+                var option = `<option status-id="${value.id}">${value.name}</option>`
+                $("#status").append(option)
+            })
+        })
+
         $editSubmit[0].showModal()
-        job_id_edit = $(this).attr('job-id')
+        task_id_edit = $(this).attr('task-id')
     })
     $('#btn-cancel-edit').click(function(e) {
         e.preventDefault()
-        console.log('cancel')
         $editSubmit[0].close();
     });
 
-    $('#btn-edit-submit').click(function(e) {
+    $('#btn-submit-edit').click(function(e) {
         e.preventDefault()
-        var name = $('#name').val()
-        var startDate = $('#start_date').val()
-        var endDate = $('#end_date').val()
+        var name = $('#task').val()
+        var job = $('#job option:selected').attr('job-id')
+        var user = $('#user option:selected').attr('user-id')
+        var startDate = $('#start-date').val()
+        var endDate = $('#end-date').val()
+        var status = $('#status option:selected').attr('status-id')
         $.ajax({
-            url: api_url_groupwork,
+            url: api_url_task,
             method:'PUT',
             processData: false,
             contentType: 'application/json',
             data: JSON.stringify({
-                id: job_id_edit,
+                id: task_id_edit,
                 name: name,
+                jobId: job,
+                userId: user,
                 startDate: startDate,
-                endDate: endDate
+                endDate: endDate,
+                statusId: status
             })
         }).done(function(result){
             if(result.isSuccess == true) {
                 $editSubmit[0].close();
                 row.closest('tr').find("td:eq(1)").html(name);
-                row.closest('tr').find("td:eq(2)").html(startDate);
-                row.closest('tr').find("td:eq(3)").html(endDate);
+                row.closest('tr').find("td:eq(2)").html(job);
+                row.closest('tr').find("td:eq(3)").html(user);
+                row.closest('tr').find("td:eq(4)").html(startDate);
+                row.closest('tr').find("td:eq(5)").html(endDate);
+                row.closest('tr').find("td:eq(6)").html(status);
                 row.closest('tr').addClass('highlight-edit');
                 setTimeout(function () {
                      row.closest('tr').removeClass('highlight-edit');
                 }, 1000);
             }
-            else console.log('Failed to update role')
+            else console.log('Failed to update task')
         })
     })
-
 })
 
 

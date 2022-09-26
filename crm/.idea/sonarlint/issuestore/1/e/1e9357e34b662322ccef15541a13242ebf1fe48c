@@ -1,18 +1,0 @@
-
->
-java:S1170"!Make this final field static too.(‚¡Ó£8 ‡œ ¶0
-k
-java:S1989,"PHandle the following exception that could be thrown by "getWriter": IOException.(¿—Èœùÿÿÿÿ
-k
-java:S1989A"PHandle the following exception that could be thrown by "getWriter": IOException.(¿—Èœùÿÿÿÿ
-r
-java:S1989U"PHandle the following exception that could be thrown by "getWriter": IOException.(¿—Èœùÿÿÿÿ8ÅÔŸ¶0
-k
-java:S1989\"PHandle the following exception that could be thrown by "getReader": IOException.(İØ·³üÿÿÿÿ
-j
-java:S1989_"OHandle the following exception that could be thrown by "readLine": IOException.(íÕŒ¦øÿÿÿÿ
-U	java:S106b"9Replace this use of System.out or System.err by a logger.(¨—êù8—ÅÔŸ¶0
-t
-java:S1989c"WHandle the following exception that could be thrown by "fromJson": JsonSyntaxException.(ì¤°Å8»’øûµ0
-r
-java:S1989p"PHandle the following exception that could be thrown by "getWriter": IOException.(¿—Èœùÿÿÿÿ8Ê‡œ ¶0

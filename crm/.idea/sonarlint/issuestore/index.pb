@@ -19,8 +19,6 @@ g
 7src/main/java/cybersoft/java18/crm/model/RoleModel.java,3\c\3cb5717d5aa21ddd99b2787ac4bb246a879a882f
 p
 @src/main/java/cybersoft/java18/crm/repository/JobRepository.java,d\c\dc33df6e7cce2a61ea708ea0fab422aff71b27ac
-i
-9src/main/java/cybersoft/java18/crm/api/JobController.java,1\e\1e9357e34b662322ccef15541a13242ebf1fe48c
 f
 6src/main/java/cybersoft/java18/crm/model/JobModel.java,0\7\0721bdb11c574ce8fe8bc95dc389875cf383ebc0
 g
@@ -47,9 +45,3 @@ k
 ;src/main/java/cybersoft/java18/crm/service/UserService.java,c\2\c2bffe4d57a16869a4fffb0c453a69c60b70200e
 k
 ;src/main/java/cybersoft/java18/crm/service/TaskService.java,e\f\ef4d49ee268ddd0e2753211e6014574d7af3a9a4
-j
-:src/main/java/cybersoft/java18/crm/api/TaskController.java,0\b\0b9634c37b950017ac29cefd6e16408a4cef4613
-j
-:src/main/java/cybersoft/java18/crm/api/UserController.java,1\a\1ab396dcf53891ca15fa7c12db7178ce25581fb4
-q
-Asrc/main/java/cybersoft/java18/crm/repository/UserRepository.java,5\2\526d9649efbf3ad21ab93dec15f9c35eb71b75e3

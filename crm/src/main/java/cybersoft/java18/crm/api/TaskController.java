@@ -49,8 +49,8 @@ public class TaskController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
-        LocalDate startDate = LocalDate.parse(req.getParameter("start_date"), LocalDateAdapter.DATE_FORMATER);
-        LocalDate endDate = LocalDate.parse(req.getParameter("end_date"), LocalDateAdapter.DATE_FORMATER);
+        LocalDate startDate = LocalDate.parse(req.getParameter("startDate"), LocalDateAdapter.DATE_FORMATER);
+        LocalDate endDate = LocalDate.parse(req.getParameter("endDate"), LocalDateAdapter.DATE_FORMATER);
         String userId = req.getParameter("userId");
         String jobId = req.getParameter("jobId");
         String statusId = req.getParameter("statusId");

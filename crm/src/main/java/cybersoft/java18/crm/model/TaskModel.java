@@ -10,9 +10,9 @@ import java.time.LocalDate;
 public class TaskModel {
     private int id;
     private String name;
+    private int jobId;
+    private int userId;
     private LocalDate startDate;
     private LocalDate endDate;
-    private int userId;
-    private int jobId;
     private int statusId;
 }
