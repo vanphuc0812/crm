@@ -3,44 +3,43 @@ package cybersoft.java18.crm.api;
 import com.google.gson.Gson;
 import cybersoft.java18.crm.model.ResponseData;
 import cybersoft.java18.crm.model.TaskModel;
-import cybersoft.java18.crm.model.UserModel;
-import cybersoft.java18.crm.service.UserService;
+import cybersoft.java18.crm.service.TaskService;
+import cybersoft.java18.crm.utils.CustomGson;
+import cybersoft.java18.crm.utils.LocalDateAdapter;
 import cybersoft.java18.crm.utils.UrlUltils;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.List;
 
-@WebServlet(name = "users", urlPatterns = {
-        UrlUltils.USER_URL,
-        UrlUltils.USER_URL+"/*"
+@WebServlet(name = "tasks", urlPatterns = {
+        UrlUltils.TASK_URL,
+        UrlUltils.TASK_URL + "/*"
 })
-@MultipartConfig
-public class UserController extends HttpServlet {
-    private final Gson gson = new Gson();
-    private final UserService service = UserService.getInstance();
+public class TaskController extends HttpServlet {
+    private final TaskService service = TaskService.getInstance();
     private final ResponseData responseData = new ResponseData();
+
+    private final Gson gson = CustomGson.GSON;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String json;
         String path = req.getRequestURI().replace(req.getContextPath(), "");
-        if (UrlUltils.USER_URL.equals(path)) {
-            List<UserModel> users = service.getAllUsers();
-            json = gson.toJson(users);
+        if (UrlUltils.TASK_URL.equals(path)) {
+            List<TaskModel> jobs = service.getAllTasks();
+            json = gson.toJson(jobs);
         } else {
-            String userId = path.replace(req.getServletPath() + "/", "");
-            UserModel user = service.getUserById(userId);
-            json = gson.toJson(user);
+            String taskId = path.replace(req.getServletPath() + "/", "");
+            TaskModel task = service.getTaskById(taskId);
+            json = gson.toJson(task);
         }
         PrintWriter printWriter = resp.getWriter();
         printWriter.print(json);
@@ -50,29 +49,22 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        String roleId = req.getParameter("role_id");
-        Part filePart = req.getPart("avatar");
-        String fileName = filePart.getSubmittedFileName();
-        String fileLink = req.getContextPath() + "/WEB-INF/avatar/" + fileName;
-        File file = new File(fileLink);
-        for (Part part : req.getParts()) {
-            part.write(fileLink);
-        }
-
-        int result = service.saveUser(name, email, password, roleId, fileLink);
+        LocalDate startDate = LocalDate.parse(req.getParameter("startDate"), LocalDateAdapter.DATE_FORMATER);
+        LocalDate endDate = LocalDate.parse(req.getParameter("endDate"), LocalDateAdapter.DATE_FORMATER);
+        String userId = req.getParameter("userId");
+        String jobId = req.getParameter("jobId");
+        String statusId = req.getParameter("statusId");
+        int result = service.saveTask(name, startDate, endDate, userId, jobId, statusId);
         if (result == 1) {
             responseData.setStatusCode(200);
             responseData.setSuccess(true);
-            responseData.setMessage("Sucessfully add new user");
+            responseData.setMessage("Sucessfully add new task");
         } else {
-            responseData.setStatusCode(400);
+            responseData.setStatusCode(401);
             responseData.setSuccess(false);
-            responseData.setMessage("Failed to add new user");
+            responseData.setMessage("Failed to add new task");
         }
         String json = gson.toJson(responseData);
-
         PrintWriter printWriter = resp.getWriter();
         printWriter.print(json);
         printWriter.flush();
@@ -81,13 +73,13 @@ public class UserController extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        int result = service.deleteUserById(id);
+        int result = service.deleteTaskById(id);
         if (result == 1) {
             responseData.setStatusCode(200);
             responseData.setSuccess(true);
             responseData.setMessage("Sucessfully delete");
         } else {
-            responseData.setStatusCode(400);
+            responseData.setStatusCode(401);
             responseData.setSuccess(false);
             responseData.setMessage("Failed to delete");
         }
@@ -106,14 +98,14 @@ public class UserController extends HttpServlet {
         while ((line = bufferedReader.readLine()) != null) {
             builder.append(line);
         }
-        UserModel userModel = gson.fromJson(builder.toString(), UserModel.class);
-        int result = service.updateUser(userModel);
+        TaskModel taskModel = gson.fromJson(builder.toString(), TaskModel.class);
+        int result = service.updateTask(taskModel);
         if (result == 1) {
             responseData.setStatusCode(200);
             responseData.setSuccess(true);
             responseData.setMessage("Sucessfully update");
         } else {
-            responseData.setStatusCode(400);
+            responseData.setStatusCode(401);
             responseData.setSuccess(false);
             responseData.setMessage("Failed to update");
         }

@@ -20,6 +20,7 @@
     <link href="css/style.css" rel="stylesheet">
     <!-- color CSS -->
     <link href="css/colors/blue-dark.css" id="theme" rel="stylesheet">
+    <link href="css/highlight.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -138,7 +139,7 @@
                                 <table class="table" id="example">
                                     <thead>
                                         <tr>
-                                            <th>STT</th>
+                                            <th>ID</th>
                                             <th>Tên Công Việc</th>
                                             <th>Dự Án</th>
                                             <th>Người Thực Hiện</th>
@@ -185,6 +186,52 @@
                 </div>
                 <!-- /.row -->
             </div>
+                <div>
+                    <dialog id="edit-dialog" class="site-dialog">
+                        <div class="form-group">
+                            <label class="col-md-12">Dự án</label>
+                            <div class="col-md-12">
+                                <select id = "job" class="form-control form-control-line"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Tên công việc</label>
+                            <div class="col-md-12">
+                                <input id="task" type="text" placeholder="Tên công việc" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Người thực hiện</label>
+                            <div class="col-md-12">
+                                <select id="user" class="form-control form-control-line"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Ngày bắt đầu</label>
+                            <div class="col-md-12">
+                                <input id = "start-date" type="text" placeholder="dd/MM/yyyy" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Ngày kết thúc</label>
+                            <div class="col-md-12">
+                                <input id = "end-date" type="text" placeholder="dd/MM/yyyy" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Trạng thái</label>
+                            <div class="col-md-12">
+                                <select id="status" class="form-control form-control-line"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button id = "btn-submit-edit" type="submit" class="btn btn-success">Lưu lại</button>
+                                <a id = "btn-cancel-edit" class="btn btn-primary">Hủy</a>
+                            </div>
+                        </div>
+                    </dialog>
+                </div>
             <!-- /.container-fluid -->
             <footer class="footer text-center"> 2018 &copy; myclass.com </footer>
         </div>
@@ -209,6 +256,7 @@
             $('#example').DataTable();
         });
     </script>
+    <script src="js/task.js"></script>
 </body>
 
 </html>

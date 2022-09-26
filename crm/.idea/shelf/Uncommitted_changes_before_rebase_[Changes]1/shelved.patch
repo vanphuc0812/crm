@@ -1,0 +1,469 @@
+Index: src/main/java/cybersoft/java18/crm/utils/UrlUltils.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package cybersoft.java18.crm.utils;\r\n\r\npublic class UrlUltils {\r\n    public static final String ROLE_URL = \"/roles\";\r\n    public static final String USER_URL = \"/users\";\r\n    public static final String JOB_URL = \"/jobs\";\r\n    public static final String CONTEXT_PATH = \"/crm\";\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/cybersoft/java18/crm/utils/UrlUltils.java b/src/main/java/cybersoft/java18/crm/utils/UrlUltils.java
+--- a/src/main/java/cybersoft/java18/crm/utils/UrlUltils.java	(revision f5d5597e269faa01e1dbd98352b52b6f7b9f3ce3)
++++ b/src/main/java/cybersoft/java18/crm/utils/UrlUltils.java	(date 1663830476203)
+@@ -4,6 +4,7 @@
+     public static final String ROLE_URL = "/roles";
+     public static final String USER_URL = "/users";
+     public static final String JOB_URL = "/jobs";
++    public static final String TASK_URL = "/tasks";
+     public static final String CONTEXT_PATH = "/crm";
+ 
+ 
+Index: src/main/java/cybersoft/java18/crm/api/JobController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package cybersoft.java18.crm.api;\r\n\r\nimport com.google.gson.*;\r\nimport cybersoft.java18.crm.model.JobModel;\r\nimport cybersoft.java18.crm.model.ResponseData;\r\nimport cybersoft.java18.crm.service.JobService;\r\nimport cybersoft.java18.crm.utils.DateTimeFormat;\r\nimport cybersoft.java18.crm.utils.LocalDateAdapter;\r\nimport cybersoft.java18.crm.utils.UrlUltils;\r\n\r\nimport javax.servlet.ServletException;\r\nimport javax.servlet.annotation.WebServlet;\r\nimport javax.servlet.http.HttpServlet;\r\nimport javax.servlet.http.HttpServletRequest;\r\nimport javax.servlet.http.HttpServletResponse;\r\nimport java.io.BufferedReader;\r\nimport java.io.IOException;\r\nimport java.io.PrintWriter;\r\nimport java.lang.reflect.Type;\r\nimport java.time.LocalDate;\r\nimport java.util.List;\r\n\r\n@WebServlet(name = \"jobs\", urlPatterns = {\r\n        UrlUltils.JOB_URL,\r\n        UrlUltils.JOB_URL + \"/*\"\r\n})\r\npublic class JobController extends HttpServlet {\r\n    private final JobService jobService = JobService.getInstance();\r\n    private final ResponseData responseData = new ResponseData();\r\n    private final Gson gson = new GsonBuilder()\r\n            .setPrettyPrinting()\r\n            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())\r\n            .registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {\r\n                @Override\r\n                public LocalDate deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {\r\n                    return LocalDate.parse(json.getAsJsonPrimitive().getAsString(), DateTimeFormat.DATE_FORMATER);\r\n                }\r\n            })\r\n            .create();\r\n\r\n    @Override\r\n    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {\r\n        String json;\r\n        String path = req.getRequestURI().replace(UrlUltils.CONTEXT_PATH, \"\");\r\n        if (UrlUltils.JOB_URL.equals(path)) {\r\n            List<JobModel> jobs = jobService.getAllJobs();\r\n            json = gson.toJson(jobs);\r\n        } else {\r\n            String jobId = path.replace(req.getServletPath() + \"/\", \"\");\r\n            JobModel job = jobService.getJobById(jobId);\r\n            json = gson.toJson(job);\r\n        }\r\n        PrintWriter printWriter = resp.getWriter();\r\n        printWriter.print(json);\r\n        printWriter.flush();\r\n    }\r\n\r\n    @Override\r\n    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {\r\n        String name = req.getParameter(\"name\");\r\n        System.out.println(name);\r\n        System.out.println(req.getParameter(\"start_date\"));\r\n        System.out.println(req.getParameter(\"end_date\"));\r\n        LocalDate startDate = LocalDate.parse(req.getParameter(\"start_date\"), DateTimeFormat.DATE_FORMATER);\r\n        LocalDate endDate = LocalDate.parse(req.getParameter(\"end_date\"), DateTimeFormat.DATE_FORMATER);\r\n        System.out.println(startDate);\r\n        System.out.println(endDate);\r\n        int result = jobService.saveJob(name, startDate, endDate);\r\n        if (result == 1) {\r\n            responseData.setStatusCode(200);\r\n            responseData.setSuccess(true);\r\n            responseData.setMessage(\"Sucessfully add new job\");\r\n        } else {\r\n            responseData.setStatusCode(401);\r\n            responseData.setSuccess(false);\r\n            responseData.setMessage(\"Failed to add new job\");\r\n        }\r\n        String json = gson.toJson(responseData);\r\n        PrintWriter printWriter = resp.getWriter();\r\n        printWriter.print(json);\r\n        printWriter.flush();\r\n    }\r\n\r\n    @Override\r\n    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {\r\n        String id = req.getParameter(\"id\");\r\n        int result = jobService.deleteJobById(id);\r\n        if (result == 1) {\r\n            responseData.setStatusCode(200);\r\n            responseData.setSuccess(true);\r\n            responseData.setMessage(\"Sucessfully delete\");\r\n        } else {\r\n            responseData.setStatusCode(401);\r\n            responseData.setSuccess(false);\r\n            responseData.setMessage(\"Failed to delete\");\r\n        }\r\n        String json = gson.toJson(responseData);\r\n\r\n        PrintWriter printWriter = resp.getWriter();\r\n        printWriter.print(json);\r\n        printWriter.flush();\r\n    }\r\n\r\n    @Override\r\n    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {\r\n        BufferedReader bufferedReader = new BufferedReader(req.getReader());\r\n        StringBuilder builder = new StringBuilder();\r\n        String line;\r\n        while ((line = bufferedReader.readLine()) != null) {\r\n            builder.append(line);\r\n        }\r\n        System.out.println(builder);\r\n        JobModel jobModel = gson.fromJson(builder.toString(), JobModel.class);\r\n        int result = jobService.updateJob(jobModel);\r\n        if (result == 1) {\r\n            responseData.setStatusCode(200);\r\n            responseData.setSuccess(true);\r\n            responseData.setMessage(\"Sucessfully update\");\r\n        } else {\r\n            responseData.setStatusCode(401);\r\n            responseData.setSuccess(false);\r\n            responseData.setMessage(\"Failed to update\");\r\n        }\r\n        String json = gson.toJson(responseData);\r\n\r\n        PrintWriter printWriter = resp.getWriter();\r\n        printWriter.print(json);\r\n        printWriter.flush();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/cybersoft/java18/crm/api/JobController.java b/src/main/java/cybersoft/java18/crm/api/JobController.java
+--- a/src/main/java/cybersoft/java18/crm/api/JobController.java	(revision f5d5597e269faa01e1dbd98352b52b6f7b9f3ce3)
++++ b/src/main/java/cybersoft/java18/crm/api/JobController.java	(date 1663830476232)
+@@ -58,13 +58,8 @@
+     @Override
+     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+         String name = req.getParameter("name");
+-        System.out.println(name);
+-        System.out.println(req.getParameter("start_date"));
+-        System.out.println(req.getParameter("end_date"));
+         LocalDate startDate = LocalDate.parse(req.getParameter("start_date"), DateTimeFormat.DATE_FORMATER);
+         LocalDate endDate = LocalDate.parse(req.getParameter("end_date"), DateTimeFormat.DATE_FORMATER);
+-        System.out.println(startDate);
+-        System.out.println(endDate);
+         int result = jobService.saveJob(name, startDate, endDate);
+         if (result == 1) {
+             responseData.setStatusCode(200);
+Index: src/main/java/cybersoft/java18/crm/model/JobModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package cybersoft.java18.crm.model;\r\n\r\nimport lombok.AllArgsConstructor;\r\nimport lombok.Getter;\r\nimport lombok.NoArgsConstructor;\r\nimport lombok.Setter;\r\n\r\nimport java.time.LocalDate;\r\n\r\n@Getter\r\n@Setter\r\n@NoArgsConstructor\r\n@AllArgsConstructor\r\npublic class JobModel {\r\n    private int id;\r\n    private String name;\r\n    private LocalDate startDate;\r\n    private LocalDate endDate;\r\n\r\n    public JobModel(String name, LocalDate startDate, LocalDate endDate) {\r\n        this.name = name;\r\n        this.startDate = startDate;\r\n        this.endDate = endDate;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/cybersoft/java18/crm/model/JobModel.java b/src/main/java/cybersoft/java18/crm/model/JobModel.java
+--- a/src/main/java/cybersoft/java18/crm/model/JobModel.java	(revision f5d5597e269faa01e1dbd98352b52b6f7b9f3ce3)
++++ b/src/main/java/cybersoft/java18/crm/model/JobModel.java	(date 1663830476261)
+@@ -17,9 +17,4 @@
+     private LocalDate startDate;
+     private LocalDate endDate;
+ 
+-    public JobModel(String name, LocalDate startDate, LocalDate endDate) {
+-        this.name = name;
+-        this.startDate = startDate;
+-        this.endDate = endDate;
+-    }
+ }
+Index: .idea/sonarlint/issuestore/index.pb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\nO\n\u001Fsrc/main/webapp/WEB-INF/web.xml\u0012,2\\e\\2e22b6edd746fa3dc40ad7276c87c8d87d72a392\nI\n\u0019src/main/webapp/index.jsp\u0012,8\\e\\8e6d3b70c9f5b02570779b0441540d45eceb0ded\n7\n\u0007pom.xml\u0012,4\\4\\442292b8a7efeabbe4cc176709b833b1792140ec\n[\n+src/main/java/cybersoft/java18/crm/CRM.java\u0012,a\\8\\a8be4b4259d9c18edef31d6082d95cef94cee620\nj\n:src/main/java/cybersoft/java18/crm/model/ResponseData.java\u0012,8\\b\\8b4ad05637d291949c625ea3327c7a4c8f9aca31\nl\n<src/main/java/cybersoft/java18/crm/jdbc/MysqlConnection.java\u0012,4\\7\\4729ddb451c26e3faf9f5d6cfebd26e8696a19ca\nk\n;src/main/java/cybersoft/java18/crm/filter/CustomFilter.java\u0012,e\\d\\eded27c3a1465b4147b656eefd55d683eae2ea8d\nn\n>src/main/java/cybersoft/java18/crm/repository/JdbcExecute.java\u0012,7\\d\\7dd988eb97942ed4cb18633dca38efe4959ebc5e\nu\nEsrc/main/java/cybersoft/java18/crm/repository/AbstractRepository.java\u0012,f\\f\\ff7532c8d2f5fdcedfbfeb6098574595d94d8f56
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/sonarlint/issuestore/index.pb b/.idea/sonarlint/issuestore/index.pb
+--- a/.idea/sonarlint/issuestore/index.pb	(revision f5d5597e269faa01e1dbd98352b52b6f7b9f3ce3)
++++ b/.idea/sonarlint/issuestore/index.pb	(date 1663830478669)
+@@ -16,4 +16,20 @@
+ n
+ >src/main/java/cybersoft/java18/crm/repository/JdbcExecute.java,7\d\7dd988eb97942ed4cb18633dca38efe4959ebc5e
+ u
+-Esrc/main/java/cybersoft/java18/crm/repository/AbstractRepository.java,f\f\ff7532c8d2f5fdcedfbfeb6098574595d94d8f56
+\ No newline at end of file
++Esrc/main/java/cybersoft/java18/crm/repository/AbstractRepository.java,f\f\ff7532c8d2f5fdcedfbfeb6098574595d94d8f56
++q
++Asrc/main/java/cybersoft/java18/crm/repository/UserRepository.java,5\2\526d9649efbf3ad21ab93dec15f9c35eb71b75e3
++k
++;src/main/java/cybersoft/java18/crm/service/UserService.java,c\2\c2bffe4d57a16869a4fffb0c453a69c60b70200e
++g
++7src/main/java/cybersoft/java18/crm/model/UserModel.java,6\7\6764e9265348f06fa885a6b372c42c07f67e6a79
++q
++Asrc/main/java/cybersoft/java18/crm/repository/RoleRepository.java,4\d\4dd89520cec8c20024e4f4960cd598a2a31f930a
++j
++:src/main/java/cybersoft/java18/crm/api/UserController.java,1\a\1ab396dcf53891ca15fa7c12db7178ce25581fb4
++k
++;src/main/java/cybersoft/java18/crm/service/RoleService.java,5\c\5c5a35054136348fc610f26445a66433df0a942c
++j
++:src/main/java/cybersoft/java18/crm/api/RoleController.java,c\7\c71bfef9f082c663645d45f46b469546e5067e67
++j
++:src/main/java/cybersoft/java18/crm/service/JobService.java,0\8\08ea8d05bb39aca128989fa356796e26c79e8105
+\ No newline at end of file
+Index: src/main/java/cybersoft/java18/crm/repository/TaskRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/cybersoft/java18/crm/repository/TaskRepository.java b/src/main/java/cybersoft/java18/crm/repository/TaskRepository.java
+new file mode 100644
+--- /dev/null	(date 1663830476294)
++++ b/src/main/java/cybersoft/java18/crm/repository/TaskRepository.java	(date 1663830476294)
+@@ -0,0 +1,93 @@
++package cybersoft.java18.crm.repository;
++
++import cybersoft.java18.crm.model.TaskModel;
++
++import java.sql.Date;
++import java.sql.PreparedStatement;
++import java.sql.ResultSet;
++import java.time.LocalDate;
++import java.util.ArrayList;
++import java.util.List;
++
++public class TaskRepository extends AbstractRepository {
++    public List<TaskModel> getAllTasks() {
++        return executeQuery(connection -> {
++            List<TaskModel> tasks = new ArrayList<TaskModel>();
++            String query = "select * from tasks";
++            PreparedStatement statement = connection.prepareStatement(query);
++            ResultSet resultSet = statement.executeQuery();
++            while (resultSet.next()) {
++                TaskModel taskModel = new TaskModel();
++                taskModel.setId(resultSet.getInt("id"));
++                taskModel.setName(resultSet.getString("name"));
++                taskModel.setStartDate(resultSet.getDate("start_date").toLocalDate());
++                taskModel.setEndDate(resultSet.getDate("end_date").toLocalDate());
++                taskModel.setUserId(resultSet.getInt("user_id"));
++                taskModel.setJobId(resultSet.getInt("job_id"));
++                taskModel.setStatusId(resultSet.getInt("status_id"));
++                tasks.add(taskModel);
++            }
++            return tasks;
++        });
++    }
++
++    public TaskModel getTaskById(String id) {
++        return (TaskModel) executeSingelQuery(connection -> {
++            String query = "select * from tasks where id = ?";
++            PreparedStatement statement = connection.prepareStatement(query);
++            statement.setString(1, id);
++            statement.executeQuery();
++            ResultSet resultSet = statement.executeQuery();
++            if (resultSet.next()) {
++                TaskModel taskModel = new TaskModel();
++                taskModel.setId(resultSet.getInt("id"));
++                taskModel.setName(resultSet.getString("name"));
++                taskModel.setStartDate(resultSet.getDate("start_date").toLocalDate());
++                taskModel.setEndDate(resultSet.getDate("end_date").toLocalDate());
++                taskModel.setUserId(resultSet.getInt("user_id"));
++                taskModel.setJobId(resultSet.getInt("job_id"));
++                taskModel.setStatusId(resultSet.getInt("status_id"));
++                return taskModel;
++            } else return null;
++        });
++    }
++
++    public int deleteTask(String id) {
++        return (int) executeSaveAndUpdate(connection -> {
++            String query = "delete from tasks where id = ?";
++            PreparedStatement statement = connection.prepareStatement(query);
++            statement.setString(1, id);
++            return statement.executeUpdate();
++        });
++    }
++
++    public int updateTask(TaskModel taskModel) {
++        return (int) executeSaveAndUpdate(connection -> {
++            String query = "UPDATE tasks SET name = ?, start_date = ?, end_date = ?, user_id =?, job_id=?, status_id=? WHERE id = ?";
++            PreparedStatement statement = connection.prepareStatement(query);
++            statement.setString(1, taskModel.getName());
++            statement.setDate(2, Date.valueOf(taskModel.getStartDate()));
++            statement.setDate(3, Date.valueOf(taskModel.getEndDate()));
++            statement.setInt(4, taskModel.getUserId());
++            statement.setInt(5, taskModel.getJobId());
++            statement.setInt(6, taskModel.getStatusId());
++            statement.setInt(7, taskModel.getId());
++            return statement.executeUpdate();
++        });
++    }
++
++    public int saveTask(String name, LocalDate startDate, LocalDate endDate, String userId, String jobId, String statusId) {
++        return (int) executeSaveAndUpdate(connection -> {
++            String query = "INSERT INTO tasks(name, start_date, end_date, user_id, job_id,status_id) VALUES(?, ?, ?, ?,?, ?)";
++            PreparedStatement statement = connection.prepareStatement(query);
++            statement.setString(1, name);
++            statement.setDate(2, Date.valueOf(startDate));
++            statement.setDate(3, Date.valueOf(endDate));
++            statement.setString(4, userId);
++            statement.setString(5, jobId);
++            statement.setString(6, statusId);
++            return statement.executeUpdate();
++        });
++    }
++
++}
+Index: src/main/java/cybersoft/java18/crm/model/TaskModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/cybersoft/java18/crm/model/TaskModel.java b/src/main/java/cybersoft/java18/crm/model/TaskModel.java
+new file mode 100644
+--- /dev/null	(date 1663830476279)
++++ b/src/main/java/cybersoft/java18/crm/model/TaskModel.java	(date 1663830476279)
+@@ -0,0 +1,18 @@
++package cybersoft.java18.crm.model;
++
++import lombok.Getter;
++import lombok.Setter;
++
++import java.time.LocalDate;
++
++@Getter
++@Setter
++public class TaskModel {
++    private int id;
++    private String name;
++    private LocalDate startDate;
++    private LocalDate endDate;
++    private int userId;
++    private int jobId;
++    private int statusId;
++}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"3c95a44a-7e0d-462a-9196-ff50b9297ffc\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/JobController.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/JobModel.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/repository/JobRepository.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/service/JobService.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/utils/DateTimeFormat.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/utils/LocalDateAdapter.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../LayoutCrm/groupwork-add.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../LayoutCrm/groupwork-add.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../LayoutCrm/groupwork.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../LayoutCrm/groupwork.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../LayoutCrm/role-table.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../LayoutCrm/role-table.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/sonarlint/issuestore/1/c/1c3f6de42e96494f054da300e608a9988538a54c\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/sonarlint/issuestore/3/c/3cb5717d5aa21ddd99b2787ac4bb246a879a882f\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/utils/UrlUltils.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/utils/UrlUltils.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"FormatOnSaveOptions\">\r\n    <option name=\"myRunOnSave\" value=\"true\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$/..\" value=\"main\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"OptimizeOnSaveOptions\">\r\n    <option name=\"myRunOnSave\" value=\"true\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2DL7e8KizeXvbUBMW49X9IWiqA5\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Project.color&quot;: &quot;003256&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;D:/100_Learning/apache-tomcat-9.0.65&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\r\n    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;\r\n  },\r\n  &quot;keyToStringList&quot;: {\r\n    &quot;DatabaseDriversLRU&quot;: [\r\n      &quot;mysql&quot;\r\n    ],\r\n    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [\r\n      &quot;MySQL&quot;\r\n    ]\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"cybersoft.java18.crm.repository\" />\r\n      <recent name=\"cybersoft.java18.crm.service\" />\r\n      <recent name=\"cybersoft.java18.crm.api\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Unnamed\" type=\"com.poratu.idea.plugins.tomcat\" factoryName=\"SMART_TOMCAT_FACTORY\" nameIsGenerated=\"true\">\r\n      <option name=\"adminPort\" value=\"8005\" />\r\n      <option name=\"contextPath\" value=\"/crm\" />\r\n      <option name=\"docBase\" value=\"$PROJECT_DIR$/src/main/webapp\" />\r\n      <option name=\"envOptions\" />\r\n      <option name=\"passParentEnvironmentVariables\" value=\"true\" />\r\n      <option name=\"port\" value=\"8080\" />\r\n      <option name=\"tomcatInfo\">\r\n        <TomcatInfo>\r\n          <option name=\"name\" value=\"Apache Tomcat/9.0.65\" />\r\n          <option name=\"number\" value=\"0\" />\r\n          <option name=\"path\" value=\"D:\\100_Learning\\apache-tomcat-9.0.65\" />\r\n          <option name=\"version\" value=\"9.0.65.0\" />\r\n        </TomcatInfo>\r\n      </option>\r\n      <option name=\"vmOptions\" value=\"\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"3c95a44a-7e0d-462a-9196-ff50b9297ffc\" name=\"Changes\" comment=\"\" />\r\n      <created>1660466607673</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1660466607673</updated>\r\n      <workItem from=\"1660466611587\" duration=\"4262000\" />\r\n      <workItem from=\"1660979444391\" duration=\"9399000\" />\r\n      <workItem from=\"1661066101575\" duration=\"9362000\" />\r\n      <workItem from=\"1661584755839\" duration=\"8656000\" />\r\n      <workItem from=\"1663057099203\" duration=\"3271000\" />\r\n      <workItem from=\"1663116382461\" duration=\"2732000\" />\r\n      <workItem from=\"1663140270878\" duration=\"1331000\" />\r\n      <workItem from=\"1663204613210\" duration=\"11916000\" />\r\n      <workItem from=\"1663290899390\" duration=\"1385000\" />\r\n      <workItem from=\"1663300683548\" duration=\"603000\" />\r\n      <workItem from=\"1663311253600\" duration=\"4135000\" />\r\n      <workItem from=\"1663639526282\" duration=\"13179000\" />\r\n      <workItem from=\"1663722435445\" duration=\"12547000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <ignored-roots>\r\n      <path value=\"$PROJECT_DIR$\" />\r\n    </ignored-roots>\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision f5d5597e269faa01e1dbd98352b52b6f7b9f3ce3)
++++ b/.idea/workspace.xml	(date 1663830476385)
+@@ -5,19 +5,14 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="3c95a44a-7e0d-462a-9196-ff50b9297ffc" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/JobController.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/JobModel.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/repository/JobRepository.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/service/JobService.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/utils/DateTimeFormat.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/utils/LocalDateAdapter.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/../LayoutCrm/groupwork-add.html" beforeDir="false" afterPath="$PROJECT_DIR$/../LayoutCrm/groupwork-add.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/../LayoutCrm/groupwork.html" beforeDir="false" afterPath="$PROJECT_DIR$/../LayoutCrm/groupwork.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/../LayoutCrm/role-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/../LayoutCrm/role-table.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/c/1c3f6de42e96494f054da300e608a9988538a54c" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/3/c/3cb5717d5aa21ddd99b2787ac4bb246a879a882f" beforeDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/TaskController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/TaskModel.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/repository/TaskRepository.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/service/TaskService.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/JobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/JobController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/JobModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/JobModel.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/utils/UrlUltils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/utils/UrlUltils.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -39,7 +34,7 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$/.." value="main" />
++        <entry key="$PROJECT_DIR$/.." value="feat/jobs" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+@@ -85,9 +80,9 @@
+ }</component>
+   <component name="RecentsManager">
+     <key name="CopyClassDialog.RECENTS_KEY">
+-      <recent name="cybersoft.java18.crm.repository" />
+-      <recent name="cybersoft.java18.crm.service" />
+       <recent name="cybersoft.java18.crm.api" />
++      <recent name="cybersoft.java18.crm.service" />
++      <recent name="cybersoft.java18.crm.repository" />
+     </key>
+   </component>
+   <component name="RunManager">
+Index: src/main/java/cybersoft/java18/crm/service/TaskService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/cybersoft/java18/crm/service/TaskService.java b/src/main/java/cybersoft/java18/crm/service/TaskService.java
+new file mode 100644
+--- /dev/null	(date 1663830476366)
++++ b/src/main/java/cybersoft/java18/crm/service/TaskService.java	(date 1663830476366)
+@@ -0,0 +1,40 @@
++package cybersoft.java18.crm.service;
++
++import cybersoft.java18.crm.model.TaskModel;
++import cybersoft.java18.crm.repository.TaskRepository;
++
++import java.time.LocalDate;
++import java.util.List;
++
++public class TaskService {
++    private static TaskService INSTANCE = new TaskService();
++    private TaskRepository taskRepository = new TaskRepository();
++
++    public static TaskService getInstance() {
++        if (INSTANCE == null) {
++            INSTANCE = new TaskService();
++        }
++        return INSTANCE;
++    }
++
++    public List<TaskModel> getAllTasks() {
++        return taskRepository.getAllTasks();
++    }
++
++    public int deleteTaskById(String id) {
++        return taskRepository.deleteTask(id);
++    }
++
++    public int updateTask(TaskModel taskModel) {
++        return taskRepository.updateTask(taskModel);
++    }
++
++    public int saveTask(String name, LocalDate startDate, LocalDate endDate, String userId, String jobId, String statusId) {
++        return taskRepository.saveTask(name, startDate, endDate, userId, jobId, statusId);
++    }
++
++
++    public TaskModel getTaskById(String id) {
++        return taskRepository.getTaskById(id);
++    }
++}
+Index: src/main/java/cybersoft/java18/crm/api/TaskController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/cybersoft/java18/crm/api/TaskController.java b/src/main/java/cybersoft/java18/crm/api/TaskController.java
+new file mode 100644
+--- /dev/null	(date 1663830476350)
++++ b/src/main/java/cybersoft/java18/crm/api/TaskController.java	(date 1663830476350)
+@@ -0,0 +1,125 @@
++package cybersoft.java18.crm.api;
++
++import com.google.gson.*;
++import cybersoft.java18.crm.model.JobModel;
++import cybersoft.java18.crm.model.ResponseData;
++import cybersoft.java18.crm.service.TaskService;
++import cybersoft.java18.crm.utils.DateTimeFormat;
++import cybersoft.java18.crm.utils.LocalDateAdapter;
++import cybersoft.java18.crm.utils.UrlUltils;
++
++import javax.servlet.ServletException;
++import javax.servlet.annotation.WebServlet;
++import javax.servlet.http.HttpServlet;
++import javax.servlet.http.HttpServletRequest;
++import javax.servlet.http.HttpServletResponse;
++import java.io.BufferedReader;
++import java.io.IOException;
++import java.io.PrintWriter;
++import java.lang.reflect.Type;
++import java.time.LocalDate;
++import java.util.List;
++
++@WebServlet(name = "jobs", urlPatterns = {
++        UrlUltils.JOB_URL,
++        UrlUltils.JOB_URL + "/*"
++})
++public class TaskController extends HttpServlet {
++    private final TaskService taskService = TaskService.getInstance();
++    private final ResponseData responseData = new ResponseData();
++    private final Gson gson = new GsonBuilder()
++            .setPrettyPrinting()
++            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
++            .registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
++                @Override
++                public LocalDate deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
++                    return LocalDate.parse(json.getAsJsonPrimitive().getAsString(), DateTimeFormat.DATE_FORMATER);
++                }
++            })
++            .create();
++
++    @Override
++    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
++        String json;
++        String path = req.getRequestURI().replace(UrlUltils.CONTEXT_PATH, "");
++        if (UrlUltils.JOB_URL.equals(path)) {
++            List<JobModel> jobs = jobService.getAllJobs();
++            json = gson.toJson(jobs);
++        } else {
++            String jobId = path.replace(req.getServletPath() + "/", "");
++            JobModel job = jobService.getJobById(jobId);
++            json = gson.toJson(job);
++        }
++        PrintWriter printWriter = resp.getWriter();
++        printWriter.print(json);
++        printWriter.flush();
++    }
++
++    @Override
++    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
++        String name = req.getParameter("name");
++        LocalDate startDate = LocalDate.parse(req.getParameter("start_date"), DateTimeFormat.DATE_FORMATER);
++        LocalDate endDate = LocalDate.parse(req.getParameter("end_date"), DateTimeFormat.DATE_FORMATER);
++        int result = jobService.saveJob(name, startDate, endDate);
++        if (result == 1) {
++            responseData.setStatusCode(200);
++            responseData.setSuccess(true);
++            responseData.setMessage("Sucessfully add new job");
++        } else {
++            responseData.setStatusCode(401);
++            responseData.setSuccess(false);
++            responseData.setMessage("Failed to add new job");
++        }
++        String json = gson.toJson(responseData);
++        PrintWriter printWriter = resp.getWriter();
++        printWriter.print(json);
++        printWriter.flush();
++    }
++
++    @Override
++    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
++        String id = req.getParameter("id");
++        int result = jobService.deleteJobById(id);
++        if (result == 1) {
++            responseData.setStatusCode(200);
++            responseData.setSuccess(true);
++            responseData.setMessage("Sucessfully delete");
++        } else {
++            responseData.setStatusCode(401);
++            responseData.setSuccess(false);
++            responseData.setMessage("Failed to delete");
++        }
++        String json = gson.toJson(responseData);
++
++        PrintWriter printWriter = resp.getWriter();
++        printWriter.print(json);
++        printWriter.flush();
++    }
++
++    @Override
++    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
++        BufferedReader bufferedReader = new BufferedReader(req.getReader());
++        StringBuilder builder = new StringBuilder();
++        String line;
++        while ((line = bufferedReader.readLine()) != null) {
++            builder.append(line);
++        }
++        System.out.println(builder);
++        JobModel jobModel = gson.fromJson(builder.toString(), JobModel.class);
++        int result = jobService.updateJob(jobModel);
++        if (result == 1) {
++            responseData.setStatusCode(200);
++            responseData.setSuccess(true);
++            responseData.setMessage("Sucessfully update");
++        } else {
++            responseData.setStatusCode(401);
++            responseData.setSuccess(false);
++            responseData.setMessage("Failed to update");
++        }
++        String json = gson.toJson(responseData);
++
++        PrintWriter printWriter = resp.getWriter();
++        printWriter.print(json);
++        printWriter.flush();
++    }
++}

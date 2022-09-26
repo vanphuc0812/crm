@@ -20,6 +20,9 @@ public class UserService {
         return userRepository.getAllUsers();
     }
 
+    public UserModel getUserById(String id) {
+        return userRepository.getUserById(id);
+    }
     public int deleteUserById(String id) {
         return userRepository.deleteUser(id);
     }
@@ -28,7 +31,7 @@ public class UserService {
         return userRepository.updateUser(roleModel);
     }
 
-    public int saveUser(String email, String fullName, String password, int roleId, String avatar) {
+    public int saveUser(String email, String fullName, String password, String roleId, String avatar) {
         return userRepository.saveUser(email, fullName, password, roleId, avatar);
     }
 
