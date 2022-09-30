@@ -16,15 +16,16 @@ $(document).ready(function () {
                 var row =
                     `
                     <tr>
-                    <td>${value.id}</td>
-                    <td>${value.fullName}</td>
-                    <td>${value.email}</td>
-                    <td>${role}</td>
-                    <td>
-                        <a href="#" user-id ="${value.id}" class="btn btn-sm btn-primary btn-edit">Sửa</a>
-                        <a href="#" user-id ="${value.id}" class="btn btn-sm btn-danger btn-delete">Xóa</a>
-                        <a href="user-details.html" user-id ="${value.id}" class="btn btn-sm btn-info btn-view">Xem</a>
-                    </td>      
+                        <td>${value.id}</td>
+                        <td>${value.fullName}</td>
+                        <td>${value.email}</td>
+                        <td>${role}</td>
+                        <td>
+                            <a href="#" user-id ="${value.id}" class="btn btn-sm btn-primary btn-edit">Sửa</a>
+                            <a href="#" user-id ="${value.id}" class="btn btn-sm btn-danger btn-delete">Xóa</a>
+                            <a href="user-details.html" user-id ="${value.id}" class="btn btn-sm btn-info btn-view">Xem</a>
+                        </td>
+                    </tr>      
                     `
                 $("#example tbody").append(row)
             })
@@ -54,36 +55,40 @@ $(document).ready(function () {
 // // 
 // //-----------------------------------------------------Add-----------------------------------------------------
 // // 
-    // $('#add-new-user').click(function(e) {
-    //     e.preventDefault()
-    //     var name = $('#name').val()
-    //     var email = $('#email').val()
-    //     var password = $('#password').val()
-    //     var avatar = $('#avatar').val()
-    //     var role = $('#role-select').val()
-    //     $.ajax({
-    //         url: api_url,
-    //         method:'POST',
-    //         data: {
-    //             name: name,
-    //             email: email,
-    //             password: password,
-    //             avatar: avatar,
-    //             role: role
-    //         }
-    //     }).done(function(result){
-    //         if(result.isSuccess == true) {
-    //             $(location).prop('href', 'user-table.html')//.done(function(){})
-    //         }
-    //         else $.toast({
-    //             heading: 'Failed',
-    //             text: 'Failed to add new user',
-    //             showHideTransition: 'slide',
-    //             position: 'top-center',
-    //             icon: 'failed'
-    //         })
-    //     })
-    // })
+    $('#btn-save-user').click(function(e) {
+        e.preventDefault()
+        var name = $('#name').val()
+        var email = $('#email').val()
+        var password = $('#password').val()
+        var avatar = $('#avatar').prop('files');
+        var role = $('#role option:selected').attr('role-id')
+        var formData = new FormData();
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('avatar', avatar);
+        formData.append('role', role);
+
+        $.ajax({
+            url: api_url_user,
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST'
+        }).done(function(result){
+            if(result.isSuccess == true) {
+                $(location).prop('href', 'user-table.html')//.done(function(){})
+            }
+            else $.toast({
+                heading: 'Failed',
+                text: 'Failed to add new user',
+                showHideTransition: 'slide',
+                position: 'top-center',
+                icon: 'failed'
+            })
+        })
+    })
     
 
 
@@ -93,6 +98,17 @@ $(document).ready(function () {
     var row
     $("body").on('click', '.btn-edit', function(){
         row = $(this)
+        $.ajax({
+            url: api_url_role,
+            method:'GET',
+            async: false,
+            crossDomain: true
+        }).done(function(result){
+            $.each(result,function(index,value){
+                var option = `<option role-id="${value.id}">${value.description}</option>`;
+                $("#role").append(option)
+            })
+        })
         $editSubmit[0].showModal()
         userIdEdit = $(this).attr('user-id')
     })
@@ -104,23 +120,29 @@ $(document).ready(function () {
 
     $('#btn-edit-submit').click(function(e) {
         e.preventDefault()
-        var role = $('#role').val()
-        var description = $('#description').val()
+        var name = $('#name').val()
+        var email = $('#email').val()
+        var password = $('#password').val()
+        var roleName = $('#role option:selected').val()
+        var roleId = $('#role option:selected').attr('role-id')
         $.ajax({
-            url: api_url,
+            url: api_url_user,
             method:'PUT',
             processData: false,
             contentType: 'application/json',
             data: JSON.stringify({
-                id: roleIdEdit,
-                name: role,
-                description: description
+                id: userIdEdit,
+                fullName: name,
+                email: email,
+                password: password,
+                roleId: roleId
             })
         }).done(function(result){
             if(result.isSuccess == true) {
                 $editSubmit[0].close();
-                row.closest('tr').find("td:eq(1)").html(role);
-                row.closest('tr').find("td:eq(2)").html(description);
+                row.closest('tr').find("td:eq(1)").html(name);
+                row.closest('tr').find("td:eq(2)").html(email);
+                row.closest('tr').find("td:eq(3)").html(roleName);
                 row.closest('tr').addClass('highlight-edit');
                 setTimeout(function () {
                      row.closest('tr').removeClass('highlight-edit');

@@ -5,15 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c95a44a-7e0d-462a-9196-ff50b9297ffc" name="Changes" comment="Add task feat">
-      <change beforePath="$PROJECT_DIR$/../LayoutCrm/task.html" beforeDir="false" afterPath="$PROJECT_DIR$/../LayoutCrm/task.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/b/0b9634c37b950017ac29cefd6e16408a4cef4613" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/a/1ab396dcf53891ca15fa7c12db7178ce25581fb4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/e/1e9357e34b662322ccef15541a13242ebf1fe48c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/2/526d9649efbf3ad21ab93dec15f9c35eb71b75e3" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/service/FileService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/service/FileServiceIml.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/SQL.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LayoutCrm/js/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../LayoutCrm/js/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LayoutCrm/user-add.html" beforeDir="false" afterPath="$PROJECT_DIR$/../LayoutCrm/user-add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LayoutCrm/user-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/../LayoutCrm/user-table.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_22_2022_1_16_PM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_22_2022_1_16_PM__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]2/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/7/6764e9265348f06fa885a6b372c42c07f67e6a79" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/2/c2bffe4d57a16869a4fffb0c453a69c60b70200e" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/7/c71bfef9f082c663645d45f46b469546e5067e67" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/d/eded27c3a1465b4147b656eefd55d683eae2ea8d" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/TaskModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/TaskModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/api/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/filter/CustomFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/filter/CustomFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/model/UserModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cybersoft/java18/crm/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +52,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="main" />
+        <entry key="$PROJECT_DIR$/.." value="feat/task" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -53,33 +71,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Project.color&quot;: &quot;003256&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/100_Learning/apache-tomcat-9.0.65&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Project.color": "003256",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "database.data.extractors.current.export.id": "SQL Inserts",
+    "last_opened_file_path": "D:/100_Learning/02_Backend/0_project/crm/crm/src/main/webapp/WEB-INF",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "rearrange.code.on.save": "true",
+    "settings.editor.selected.configurable": "actions.on.save"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ],
-    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [
-      &quot;MySQL&quot;
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
+      "MySQL"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\100_Learning\02_Backend\0_project\crm\crm\src\main\webapp\WEB-INF" />
+      <recent name="D:\100_Learning\02_Backend\0_project\crm\crm\src\main\webapp\WEB-INF\avatars" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\100_Learning\02_Backend\0_project\crm\crm\src\main\webapp" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="cybersoft.java18.crm.repository" />
       <recent name="cybersoft.java18.crm.service" />
@@ -107,6 +134,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="com.poratu.idea.plugins.tomcat" factoryName="SMART_TOMCAT_FACTORY">
+      <option name="adminPort" value="8005" />
+      <option name="contextPath" value="/crm" />
+      <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
+      <option name="envOptions" />
+      <option name="passParentEnvironmentVariables" value="true" />
+      <option name="port" value="8080" />
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/9.0.65" />
+          <option name="number" value="0" />
+          <option name="path" value="D:\100_Learning\apache-tomcat-9.0.65" />
+          <option name="version" value="9.0.65.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -130,7 +177,10 @@
       <workItem from="1663639526282" duration="13179000" />
       <workItem from="1663722435445" duration="13322000" />
       <workItem from="1663898431839" duration="4090000" />
-      <workItem from="1664155236199" duration="5800000" />
+      <workItem from="1664155236199" duration="6533000" />
+      <workItem from="1664241225202" duration="9149000" />
+      <workItem from="1664413318818" duration="4698000" />
+      <workItem from="1664502499187" duration="2075000" />
     </task>
     <task id="LOCAL-00001" summary="Add task feat">
       <created>1663897802383</created>
@@ -150,7 +200,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="feat/task" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

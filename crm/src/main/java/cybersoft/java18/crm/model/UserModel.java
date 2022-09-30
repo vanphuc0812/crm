@@ -15,11 +15,10 @@ public class UserModel {
     private String avatar;
     private int roleId;
 
-    public UserModel(String email, String fullName, String password, String avatar, int roleId) {
+    public UserModel(String email, String fullName, String password, int roleId) {
         this.email = email;
         this.fullName = fullName;
         this.password = password;
-        this.avatar = avatar;
         this.roleId = roleId;
     }
 }

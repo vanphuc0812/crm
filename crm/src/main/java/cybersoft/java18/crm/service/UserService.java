@@ -23,6 +23,7 @@ public class UserService {
     public UserModel getUserById(String id) {
         return userRepository.getUserById(id);
     }
+
     public int deleteUserById(String id) {
         return userRepository.deleteUser(id);
     }
@@ -31,11 +32,8 @@ public class UserService {
         return userRepository.updateUser(roleModel);
     }
 
-    public int saveUser(String email, String fullName, String password, String roleId, String avatar) {
-        return userRepository.saveUser(email, fullName, password, roleId, avatar);
+    public int saveUser(String fullName, String email, String password, String roleId, String avatar) {
+        return userRepository.saveUser(fullName, email, password, roleId, avatar);
     }
-
-    public int saveUser(UserModel roleModel) {
-        return userRepository.saveUser(roleModel);
-    }
+    
 }

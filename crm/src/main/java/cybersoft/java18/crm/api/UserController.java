@@ -2,7 +2,6 @@ package cybersoft.java18.crm.api;
 
 import com.google.gson.Gson;
 import cybersoft.java18.crm.model.ResponseData;
-import cybersoft.java18.crm.model.TaskModel;
 import cybersoft.java18.crm.model.UserModel;
 import cybersoft.java18.crm.service.UserService;
 import cybersoft.java18.crm.utils.UrlUltils;
@@ -15,14 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @WebServlet(name = "users", urlPatterns = {
         UrlUltils.USER_URL,
-        UrlUltils.USER_URL+"/*"
+        UrlUltils.USER_URL + "/*"
 })
 @MultipartConfig
 public class UserController extends HttpServlet {
@@ -52,16 +52,13 @@ public class UserController extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        String roleId = req.getParameter("role_id");
+        String roleId = req.getParameter("role");
         Part filePart = req.getPart("avatar");
-        String fileName = filePart.getSubmittedFileName();
-        String fileLink = req.getContextPath() + "/WEB-INF/avatar/" + fileName;
-        File file = new File(fileLink);
-        for (Part part : req.getParts()) {
-            part.write(fileLink);
-        }
+        String path = req.getServletContext().getRealPath("/avatars") + "\\";
+        String fileName = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() + ".png";
+        filePart.write(path + fileName);
 
-        int result = service.saveUser(name, email, password, roleId, fileLink);
+        int result = service.saveUser(name, email, password, roleId, "/avatars" + fileName);
         if (result == 1) {
             responseData.setStatusCode(200);
             responseData.setSuccess(true);

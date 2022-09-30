@@ -121,7 +121,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Thêm mới thành viên</h4>
+                        <h4 class="page-title">Add new user</h4>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -142,7 +142,8 @@
                                     <div class="col-md-12">
                                         <input id="email" type="email" placeholder="johnathan@admin.com"
                                             class="form-control form-control-line" name="example-email"
-                                            id="example-email"> </div>
+                                            id="example-email">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Password</label>
@@ -151,22 +152,20 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="avatar">Choose a profile picture:</label>
-                                    <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+                                    <label for="avatar" class="col-md-12">Choose a profile picture:</label>
+                                    <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" class="form-control form-control-line">
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-12">Select role</label>
                                     <div class="col-sm-12">
-                                        <select id="role-select" class="form-control form-control-line">
-                                            <option>London</option>
-                                            <option>India</option>
+                                        <select id="role" class="form-control form-control-line">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <button type="submit" class="btn btn-success">Add User</button>
-                                        <a id="add-new-user" href="user-table.html" class="btn btn-primary">Quay lại</a>
+                                        <button id = "btn-save-user" type="submit" class="btn btn-success">Add User</button>
+                                        <a id="add-new-user" href="user-table.html" class="btn btn-primary">Back</a>
                                     </div>
                                 </div>
                             </form>
@@ -194,6 +193,8 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
+    <script src="js/user.js"></script>
+    <script src="js/user-add.js"></script>
 </body>
 
 </html>

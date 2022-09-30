@@ -1,0 +1,65 @@
+USE crm_app;
+
+CREATE TABLE IF NOT EXISTS roles (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(100),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT NOT NULL AUTO_INCREMENT,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    fullname VARCHAR(100) NOT NULL,
+    avatar VARCHAR(100),
+    role_id INT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS status (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS jobs (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    start_date DATE,
+    end_date DATE,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS tasks (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    start_date DATE,
+    end_date DATE,
+    user_id INT NOT NULL,
+    job_id INT NOT NULL,
+    status_id INT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE users ADD FOREIGN KEY (role_id) REFERENCES roles (id)  ON DELETE CASCADE;
+ALTER TABLE tasks ADD FOREIGN KEY (user_id) REFERENCES users (id)  ON DELETE CASCADE;
+ALTER TABLE tasks ADD FOREIGN KEY (job_id) REFERENCES jobs (id)  ON DELETE CASCADE;
+ALTER TABLE tasks ADD FOREIGN KEY (status_id) REFERENCES status (id)  ON DELETE CASCADE;
+
+INSERT INTO roles( name, description ) VALUES ("ROLE_ADMIN", "Quản trị viên");
+INSERT INTO roles( name, description ) VALUES ("ROLE_MANAGER", "Quản lí");
+INSERT INTO roles( name, description ) VALUES ("ROLE_USER", "Nhân viên");
+
+INSERT INTO crm_app.status (id, name) VALUES (1, 'Đã hoàn thành');
+INSERT INTO crm_app.status (id, name) VALUES (2, 'Đang thực hiện');
+INSERT INTO crm_app.status (id, name) VALUES (3, 'Dự thảo');
+
+INSERT INTO crm_app.users (id, email, password, fullname, avatar, role_id) VALUES (4, 'vanphuc0812@gmail.com', 'password', 'Huỳnh Văn Phúc', 'asf', 2);
+INSERT INTO crm_app.users (id, email, password, fullname, avatar, role_id) VALUES (9, 'phuc.huynh-van@banvien.com.vn', 'password', 'Phúc Huỳnh', '/avatars1664424202635.jpg', 3);
+INSERT INTO crm_app.users (id, email, password, fullname, avatar, role_id) VALUES (11, 'vanphuc0812@gmail.com', 'password', 'Huỳnh Phúc', '/avatars1664506528861.png', 2);
+
+INSERT INTO crm_app.jobs (id, name, start_date, end_date) VALUES (5, 'NewAgent', '2023-07-22', '2024-08-22');
+INSERT INTO crm_app.jobs (id, name, start_date, end_date) VALUES (6, 'python', '2022-07-22', '2022-08-22');
+
+INSERT INTO crm_app.tasks (id, name, start_date, end_date, user_id, job_id, status_id) VALUES (8, 'testAdd', '2021-11-11', '2022-11-11', 4, 6, 2);
